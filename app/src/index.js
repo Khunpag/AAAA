@@ -1,21 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import TestState from './TestState';
-import Login from './login';
-import reportWebVitals from './reportWebVitals';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
-import Home from './Home';
-import PatientReport from './PatientReport';
-import PatientDetail from './PatientDetail';
-import PatientAdd from './PatientAdd';
-import ChartPatient from './chartPatient';
-import UserAdd from './UserAdd';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import TestState from "./TestState";
+import Login from "./login";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Components
+import Home from "./Home";
+import PatientReport from "./PatientReport";
+import PatientDetail from "./PatientDetail";
+import PatientAdd from "./PatientAdd";
+import ChartPatient from "./chartPatient";
+import UserAdd from "./UserAdd";
+import User from "./components/user";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -25,11 +24,11 @@ ReactDOM.render(
       <Route path="/patient/:actionId" element={<PatientAdd />} />
       <Route path="report/all" element={<ChartPatient />} />
       <Route path="/user/:person_no" element={<UserAdd />} />
+      <Route path="/role_user/view/:id" element={<User />} />
     </Routes>
   </BrowserRouter>,
 
-  document.getElementById('root')
-
+  document.getElementById("root")
 );
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));

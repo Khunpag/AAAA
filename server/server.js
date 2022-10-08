@@ -988,6 +988,7 @@ app.get("/api/personData/:personNo", async (req, res) => {
       });
     }
   } catch (ex) {
+    console.log(ex);
     res.json({
       result: false,
       message: ex.message,

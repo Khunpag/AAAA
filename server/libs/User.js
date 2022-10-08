@@ -74,10 +74,22 @@ module.exports = {
   },
 
   getByPersonNo: async (pool, personNo) => {
-    var sql = "SELECT * FROM role_user WHERE person_no = %L";
-    sql = format(sql, [personNo]);
+    const userInfo = "SELECT * FROM role_user WHERE person_no = $1";
 
-    return await pool.query(sql);
+    const userCredentail =
+      "SELECT username from username_password WHERE user_no = $1";
+
+    // const
+    // sql = format(userInfo, [personNo]);
+
+    const [reosolve1, resolve2] = await Promise.all([
+      pool.query(userInfo, [personNo]),
+      pool.query(userCredentail, [personNo]),
+    ]);
+
+    const data = { ...reosolve1.rows[0], ...resolve2.rows[0] };
+
+    return data;
   },
 
   /* A function that is updating the database. */
