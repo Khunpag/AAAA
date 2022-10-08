@@ -13,10 +13,27 @@ function User() {
   }, []);
 
   const getUser = async () => {
-    console.log(`/api/personData/${params.id}`);
     const json = await API_GET(`personData/${params.id}`);
 
     setUser(json.data);
+  };
+
+  const getSex = (sex) => {
+    if (sex) {
+      return sex === "M" ? "ชาย" : "หญิง";
+    }
+  };
+
+  const getDate = (format) => {
+    if (format) {
+      const birthYear = format.split("-")[0];
+      const currentYear = new Date().getFullYear();
+
+      console.log(birthYear, currentYear);
+
+      const age = currentYear - birthYear;
+      return age;
+    }
   };
   return (
     <div className="container-fluid">
@@ -41,11 +58,11 @@ function User() {
                 </div>
                 <div className="d-flex py-2">
                   <h5 className="mx-2">เพศ :</h5>
-                  <h5>{user?.sex}</h5>
+                  <h5>{getSex(user?.sex)}</h5>
                 </div>
                 <div className="d-flex py-2">
                   <h5 className="mx-2">อายุ :</h5>
-                  <h5>{user?.birthday}</h5>
+                  <h5>{getDate(user?.birthday)}</h5>
                 </div>
                 <div className="d-flex py-2">
                   <h5 className="mx-2">ชื่อผู้ใช้ :</h5>
