@@ -35,7 +35,7 @@ export default function PatientAdd() {
       let json = await API_GET("personData/" + personNo);
 
       // var data = json
-      var data = json.data.rows[0];
+      var data = json.data;
       // var data1 = json.data1.rows[0];
       // var data2 = json.data2.rows[0];
       // var data3 = json.data3.rows[0];
@@ -58,6 +58,7 @@ export default function PatientAdd() {
       setLastname(data.last_name);
       setSex(data.sex);
       setDate(data.birthday);
+      setUsername(data.username);
     }
 
     if (params.person_no != "add") {
@@ -292,7 +293,7 @@ export default function PatientAdd() {
                           as="input"
                           type="submit"
                           value="บันทึก"
-                          className="bg-green re-bor"
+                          className="bg-green re-bor my-2"
                           onClick={doUpdatePerson}
                         />
                       </Col>
@@ -301,7 +302,7 @@ export default function PatientAdd() {
                           as="input"
                           type="reset"
                           value="ยกเลิก"
-                          className="bg-red re-bor"
+                          className="bg-red re-bor my-2"
                         />
                       </Col>
                     </Row>
