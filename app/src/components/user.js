@@ -24,6 +24,7 @@ function User() {
     }
   };
 
+  // format 2022-10-12
   const getDate = (format) => {
     if (format) {
       const birthYear = format.split("-")[0];

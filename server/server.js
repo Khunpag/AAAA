@@ -669,10 +669,10 @@ app.get("/api/patientData/:patientNo", async (req, res) => {
 
       res.json({
         result: true,
-        data: result,
-        data1: result1,
-        data2: result2,
-        data3: result3,
+        data: result.rows[0],
+        data1: result1.rows[0],
+        data2: result2.rows[0],
+        data3: result3.rows[0],
       });
     }
   } catch (ex) {
@@ -859,87 +859,54 @@ app.get("/api/report", checkAuth, async (req, res) => {
 //         })
 
 /* The above code is a POST request to the server. It is sending the data from the form to the server. */
-app.post("/api/person/add", checkAuth, async (req, res) => {
+// app.post("/api/person/add", checkAuth, async (req, res) => {
+app.post("/api/person/add", async (req, res) => {
   const input = req.body;
 
-  console.log(input.username);
-  console.log(input.password);
+  console.log(input);
 
   try {
     /* Checking if the username is already in the database. */
-    var result = await role_user.isDuplicate(pool, input.username, null);
-    console.log(result);
-    if (!result) {
-      /* Checking if the username is already in the database. */
-      var result1 = await role_user.addUserPass(
-        pool,
-        input.username,
-        input.password
-      );
-      //console.log(result1);
-      if (result1) {
-        try {
-          /* Calling the selectUser function in the role_user.js file. */
-          var result2 = await role_user.selectUser(
-            pool,
-            input.username,
-            input.password
-          );
-        } catch (error) {
-          console.log(error);
-        }
-        //console.log(result2);
-        if (result2) {
-          console.log(
-            input.name,
-            input.lastname,
-            input.sex,
-            input.date,
-            result2.rows[0].person_no
-          );
+    const result = await role_user.isDuplicate(pool, input.username, null);
 
-          try {
-            /* Adding the user to the database. */
-            var result3 = await role_user.addUser(
-              pool,
-              input.name,
-              input.lastname,
-              input.sex,
-              input.date,
-              result2.rows[0].person_no
-            );
-            //console.log(result3);
-          } catch (error) {
-            console.log(error);
-          }
-
-          // if(result3){
-          //     var result4 = await role_user.selectPersonNo(pool, result2.rows[0].person_no);
-          //  if(result4){
-          //         var result5 = await role_user.addG1(pool, time, result4.rows[0].person_no);
-          //         if(result5){
-          //             console.log("5555555555");
-          //             console.log(input.gTwo);
-          //             await Patient.addG2(pool, input.gTwo, result4.rows[0].patient_no);
-          //             await Patient.addG3(pool, input.gThree, result4.rows[0].patient_no);
-
-          //             res.json({
-          //                 result: true
-          //             })
-          //         }
-          //      }
-
-          // }
-        }
-      } else {
-        res.json({
-          result: false,
-        });
-      }
-    } else {
-      res.json({
+    if (result)
+      return res.json({
         result: false,
         message: "ชื่อผู้ใช้งานซ้ำ",
+      });
+
+    /* Checking if the username is already in the database. */
+    const result1 = await role_user.addUserPass(
+      pool,
+      input.username,
+      input.password
+    );
+
+    if (!result1)
+      return res.json({
+        result: false,
+      });
+
+    const result2 = await role_user.selectUser(
+      pool,
+      input.username,
+      input.password
+    );
+
+    console.log(result2);
+
+    if (result2) {
+      var result3 = await role_user.addUser(
+        pool,
+        input.name,
+        input.last_name,
+        input.sex,
+        input.date,
+        result2.rows[0].user_no
+      );
+
+      return res.json({
+        result: true,
       });
     }
   } catch (ex) {

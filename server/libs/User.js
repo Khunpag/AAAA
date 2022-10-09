@@ -42,7 +42,6 @@ module.exports = {
   },
 
   addUserPass: async (pool, username, password) => {
-    console.log(username, password);
     return await pool.query(
       "INSERT INTO username_password (username, pwd, department_no) " +
         "VALUES ($1, MD5($2), 1)",

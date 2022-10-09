@@ -46,21 +46,13 @@ export default function UserHome() {
     if (search == "") {
       setUser(conUser);
     } else {
-      const fuse = new Fuse(conUser, {
-        keys: ["person_no"],
-      })
-
-      let paSearch = fuse.search(search);
-
-      let resultSearch = [];
-
-      paSearch.map((data) => {
-        resultSearch.push(data.item);
-      });
-
-      console.log(resultSearch);
-
-      setUser(resultSearch);
+      const rst = role_user.filter(
+        (r) =>
+          String(r.person_no).includes(search) ||
+          r.name.includes(search) ||
+          r.last_name.includes(search)
+      );
+      setUser(rst);
     }
   }, [search]);
 
@@ -104,58 +96,56 @@ export default function UserHome() {
     setShowModal(true);
 
     // console.log("123");
-}
-
+  };
 
   const onConfirmDelete = async () => {
     setShowModal(false);
     console.log("abc");
     let json = await API_POST("role_user/delete", {
-        user_no: userNo,
-        person_no: personNo
+      user_no: userNo,
+      person_no: personNo,
     });
 
     console.log(json);
 
     if (json.result) {
-        console.log("cba");
-        fetchUser();
+      console.log("cba");
+      fetchUser();
     }
+  };
+  //   const fetchUser = async () => {
+  //     let json = await API_GET("role_user");
+  //     setUser(json.data);
+  //     console.log(json.data);
+  // }
 
-}
-//   const fetchUser = async () => {
-//     let json = await API_GET("role_user");
-//     setUser(json.data);
-//     console.log(json.data);
-// }
+  // const onDeleteModal = (data) => {
+  //   setUserNo(data.user_no);
+  //   setPatientNo(data.patient_no);
 
-// const onDeleteModal = (data) => {
-//   setUserNo(data.user_no);
-//   setPatientNo(data.patient_no);
+  //   setModalTitle("ลบบัญชีผู้ใช้");
+  //   setModalMessage("ยืนยันการลบบัญชีผู้ใช้");
+  //   setShowModal(true);
 
-//   setModalTitle("ลบบัญชีผู้ใช้");
-//   setModalMessage("ยืนยันการลบบัญชีผู้ใช้");
-//   setShowModal(true);
+  //   // console.log("123");
+  // }
 
-//   // console.log("123");
-// }
+  // const onConfirmDelete = async () => {
+  //     setShowModal(false);
+  //     console.log("abc");
+  //     let json = await API_POST("role_user/delete", {
+  //         user_no: userNo,
+  //         person_no: personNo
+  //     });
 
-// const onConfirmDelete = async () => {
-//     setShowModal(false);
-//     console.log("abc");
-//     let json = await API_POST("role_user/delete", {
-//         user_no: userNo,
-//         person_no: personNo
-//     });
+  //     console.log(json);
 
-//     console.log(json);
+  //     if (json.result) {
+  //         console.log("cba");
+  //         fetchUser();
+  //     }
 
-//     if (json.result) {
-//         console.log("cba");
-//         fetchUser();
-//     }
-
-// }
+  // }
 
   const onHide = () => {
     setShowModal(false);
@@ -200,7 +190,8 @@ export default function UserHome() {
                       <Col md={5}>
                         <div className="">
                           {/* <span className="sp-ad"> */}
-                          <Link to={`/user/add`}
+                          <Link
+                            to={`/user/add`}
                             className="bg-green re-bor button-add-p rounded-3 button1"
                           >
                             <i className="fa-solid fa-plus fa-lg m-right-add-pa"></i>
@@ -214,7 +205,9 @@ export default function UserHome() {
                   <div className="px-4 overflow">
                     <div className="row">
                       <div className="col-4">
-                        <p className="align-items-center">เลขรหัสประจำตัวผู้ใช้</p>{" "}         
+                        <p className="align-items-center">
+                          เลขรหัสประจำตัวผู้ใช้
+                        </p>{" "}
                       </div>
                       <div className="col-4">
                         <p className="text end">ชื่อ-นามสกุล </p>{" "}
@@ -223,12 +216,11 @@ export default function UserHome() {
                     {/* { <h6 className="bg-secondary text-center"></h6>} */}
                     {console.log(role_user)}
 
-                    
                     {role_user.map((item) => (
                       <UserList
                         key={item.person_no}
                         data={item}
-                         //onDelete={onDelete}
+                        //onDelete={onDelete}
                         onDeleteModal={onDeleteModal}
                       />
                     ))}
