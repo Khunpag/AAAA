@@ -45,7 +45,7 @@ const pool = new Pool({
   user: "postgres",
   port: 5432,
   // password: "1234",
-  password: "postgres",
+  password: "1234",
   database: "VR-Project",
 });
 
