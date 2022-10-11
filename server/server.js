@@ -1177,6 +1177,44 @@ app.get("/api/game_report/:patientNo", checkAuth, (req, res) => {
   });
 });
 
+app.get("/api/admin/game_report/:userNo", checkAuth, async (req, res) => {
+  const { userNo } = req.params;
+  const qry = "SELECT patient_no from patient WHERE user_no = $1";
+
+  const responseFaile = () => {
+    return res.json({ result: false });
+  };
+
+  try {
+    var rst = await pool.query(qry, [userNo]);
+  } catch (error) {
+    return responseFaile();
+  }
+
+  if (!rst.rows.length) {
+    return res.json({ result: false, message: "No data" });
+  }
+
+  const patientNo = rst.rows[0].patient_no;
+
+  const qryStats = `SELECT game_name, COUNT(*) AS total from game 
+    JOIN game_type ON game.game_type_no = game_type.game_type_no
+    WHERE patient_no = $1
+    GROUP BY game_name`;
+
+  try {
+    var rst2 = await pool.query(qryStats, [patientNo]);
+  } catch (error) {
+    return responseFaile();
+  }
+
+  if (!rst2.rows.length) {
+    return res.json({ result: false, message: "No data" });
+  }
+
+  res.json({ result: true, data: rst2.rows });
+});
+
 app.post("/api/role_user/delete", checkAuth, async (req, res) => {
   const input = req.body;
 
