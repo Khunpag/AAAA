@@ -6,10 +6,10 @@ import UserHome from "./UserHome";
 export default function Home() {
   const getComponentByRole = () => {
     // console.log(localStorage.getItem("department_no"));
-    if (localStorage.getItem("department_no") == 3) {
+    if (localStorage.getItem("department_no") == 2) {
       return <PatientHome />;
     }
-    if (localStorage.getItem("department_no") == 2) {
+    if (localStorage.getItem("department_no") == 3) {
       return <UserHome />;
     }
 
