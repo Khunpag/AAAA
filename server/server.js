@@ -840,26 +840,8 @@ app.get("/api/report", checkAuth, async (req, res) => {
 // })
 //
 //!require("./routes")(client,app); Rount_P API
-// app.get('/api/v2/patient',async (req, res) => {
-//             console.log("hhh");
-//             pool.query("SELECT * FROM patient",  (error, results) => {
-//                      if(error) throw error;
-
-//                     res.json(results);
-
-//                     try{
-//                          res.json(results.rows);
-//                          res.send("Welcome to Unity Success");
-//                           res.json(results.rows[0]);
-//                     }catch (error){
-//                         res.status(500).send(error);
-//                    }
-//                  });
-
-//         })
 
 /* The above code is a POST request to the server. It is sending the data from the form to the server. */
-// app.post("/api/person/add", checkAuth, async (req, res) => {
 app.post("/api/person/add", async (req, res) => {
   const input = req.body;
 
@@ -942,16 +924,14 @@ app.get("/api/personData/:personNo", async (req, res) => {
     var result = await role_user.getByPersonNo(pool, personNo);
 
     if (result) {
-      // var result1 = await Patient.getG1ByPatientNo(pool, patientNo);
-      // var result2 = await Patient.getG2ByPatientNo(pool, patientNo);
-      // var result3 = await Patient.getG3ByPatientNo(pool, patientNo);
+      // var result1 = await User.getG1ByPersonNo(pool, PersonNo);
+      // var result2 = await User.getG2ByPersonNo(pool, PersonNo);
+      // var result3 = await User.getG3ByPersonNo(pool, PersonNo);
 
       res.json({
         result: true,
         data: result,
-        // data1: result1,
-        // data2: result2,
-        // data3: result3
+         
       });
     }
   } catch (ex) {
