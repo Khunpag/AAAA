@@ -39,7 +39,7 @@ export default function Sidebar(){
                 <img src={`http://localhost:8080/images/logo-doctor.webp`} width={250} className="m-top-logo"/>
             </div>
             <div className="m-top">
-                <Link to="/home"><i className="fa-solid fa-users fa-xl me-3"></i>จัดการบัญชีผู้ป่วย</Link>
+                <Link to="/home"><i className="fa-solid fa-users fa-xl me-3"></i>จัดการบัญชีผู้ใช้</Link>
             </div>
             <div className="m-top-logout">
                 <Link className="bg-red" onClick={onLogOutModal}><i className="fa-solid fa-right-from-bracket fa-xl me-3"></i>ออกจากระบบ</Link>

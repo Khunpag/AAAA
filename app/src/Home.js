@@ -9,7 +9,7 @@ export default function Home() {
     if (localStorage.getItem("department_no") == 2) {
       return <PatientHome />;
     }
-    if (localStorage.getItem("department_no") == 1) {
+    if (localStorage.getItem("department_no") == 3) {
       return <UserHome />;
     }
 

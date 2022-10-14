@@ -24,9 +24,9 @@ export default function PatientAdd() {
 
   useEffect(() => {
     if (params.person_no == "add") {
-      setPageTitle("เพิ่มบัญชีผู้ป่วย");
+      setPageTitle("เพิ่มบัญชีผู้ใช้");
     } else {
-      setPageTitle("แก้ไขบัญชีผู้ป่วย");
+      setPageTitle("แก้ไขบัญชีผู้ใช้");
     }
   }, []);
 
@@ -139,8 +139,8 @@ export default function PatientAdd() {
   };
 
   // const onAddModal = async () => {
-  //     setModalTitle("เพิ่มบัญชีผู้ป่วย");
-  //     setModalMessage("ยืนยันการเพิ่มบัญชีผู้ป่วย");
+  //     setModalTitle("เพิ่มบัญชีผู้ใช้");
+  //     setModalMessage("ยืนยันการเพิ่มบัญชีผู้ใช้");
   //     setShowModal(true);
   //     // setStatus("add");
 
@@ -149,7 +149,7 @@ export default function PatientAdd() {
 
   // const onUpdateModal = async () => {
   //     setModalTitle("แก้ไขข้อมูลผู้ป่วย");
-  //     setModalMessage("ยืนยันการแก้ไขข้อมูลบัญชีผู้ป่วย");
+  //     setModalMessage("ยืนยันการแก้ไขข้อมูลบัญชีผู้ใช้");
   //     setShowModal(true);
   // }
 

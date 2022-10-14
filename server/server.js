@@ -1179,7 +1179,7 @@ app.get("/api/admin/game_report/:userNo", checkAuth, async (req, res) => {
 
   const qryStats = `SELECT game_name, COUNT(*) AS total from game 
     JOIN game_type ON game.game_type_no = game_type.game_type_no
-    WHERE patient_no = $1
+    WHERE patient_no = 1$
     GROUP BY game_name`;
 
   try {
